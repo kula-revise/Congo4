@@ -216,11 +216,13 @@ body:not(.bright) .btn-primary .sa, body:not(.bright) #next-btn .sa, body:not(.b
 </style>
 </head>
 <body>
+<script>/* kula: LMS embed events. "completed" fires once, when the learner reaches the closing screen. "advance" fires from the final button. */
+(function(){var sentCompleted=false;window.kulaEmbed=function(ev){if(ev==="completed"){if(sentCompleted)return;sentCompleted=true;}try{window.parent.postMessage({type:"lms-embed-event",version:"1.0",payload:{event:ev}},"*");}catch(e){}};})();</script>
 <style>#kula-mode-toggle{position:fixed;bottom:1.1rem;right:1.1rem;z-index:9999;display:inline-flex;align-items:center;gap:.45em;padding:.48rem .82rem;border-radius:999px;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent;line-height:1;background:#F4F6F8;color:#525C66;border:1px solid rgba(23,33,43,.15);box-shadow:0 2px 8px rgba(0,0,0,.10);transition:transform .15s ease,box-shadow .15s ease}#kula-mode-toggle:hover{transform:translateY(-1px)}#kula-mode-toggle svg{width:15px;height:15px;display:block;flex:0 0 auto}body:not(.bright) #kula-mode-toggle{background:#1B2026;color:#AEB8C4;border-color:rgba(220,232,244,.18)}.essaynote{background:color-mix(in srgb, var(--a2) 8%, transparent);border:1px solid color-mix(in srgb, var(--a2) 32%, transparent);border-left:4px solid var(--a2);border-radius:7px;padding:1rem 1.15rem 1.05rem;}
 .essaynote-label{font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--a2);font-weight:700;margin-bottom:0.5rem;}
 .essaynote h2{margin:0 0 0.5rem;}
 .essaynote p:last-child{margin-bottom:0;}
-</style><button id="kula-mode-toggle" type="button" onclick="kulaToggle()" aria-label="Switch between light and dark mode"><span id="kmt-icon"></span><span id="kmt-label"></span></button><script>(function(){var MOON="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z'/></svg>",SUN="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4.2'/><path d='M12 1.6v2M12 20.4v2M3.6 12h-2M22.4 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4'/></svg>",K="kula-theme";function paint(){var d=!document.body.classList.contains("bright");var ic=document.getElementById("kmt-icon"),la=document.getElementById("kmt-label");if(ic)ic.innerHTML=d?SUN:MOON;if(la)la.textContent=d?"Light mode":"Dark mode"}window.kulaToggle=function(){document.body.classList.toggle("bright");try{localStorage.setItem(K,document.body.classList.contains("bright")?"bright":"dark")}catch(e){}paint()};try{if(localStorage.getItem(K)==="bright")document.body.classList.add("bright")}catch(e){document.body.classList.add("dark")}paint();})();</script>
+</style><button id="kula-mode-toggle" type="button" onclick="kulaToggle()" aria-label="Switch between light and dark mode"><span id="kmt-icon"></span><span id="kmt-label"></span></button><script>(function(){var MOON="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z'/></svg>",SUN="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4.2'/><path d='M12 1.6v2M12 20.4v2M3.6 12h-2M22.4 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4'/></svg>",K="kula-mode";function paint(){var d=!document.body.classList.contains("bright");var ic=document.getElementById("kmt-icon"),la=document.getElementById("kmt-label");if(ic)ic.innerHTML=d?SUN:MOON;if(la)la.textContent=d?"Light mode":"Dark mode"}window.kulaToggle=function(){document.body.classList.toggle("bright");try{localStorage.setItem(K,document.body.classList.contains("bright")?"light":"dark")}catch(e){}paint()};try{if(localStorage.getItem(K)==="light")document.body.classList.add("bright")}catch(e){document.body.classList.add("dark")}paint();})();</script>
 <div class="container">
   <div class="top-bar hidden" id="top-bar">
     <div class="top-meta"><span id="lesson-tag">Kula Revise · Grade 12 · The Congo</span><span class="top-count" id="step-count"></span></div>
@@ -486,7 +488,7 @@ const FLOW = [
       "The collapse of the Zairian economy was entirely the result of Mobutu's decisions, and world prices had almost nothing to do with it"
     ],
     "correct": 0,
-    "explanation": "{opt0} gives each cause its own job: the shocks explain the steep fall, the policies explain why nothing was left to break it. {opt1} tempts because it's true and even-handed. But it's vague, and vagueness is what keeps a decent answer stuck in the middle."
+    "explanation": "{opt0} gives each cause its own job. The shocks explain the steep fall. The policies explain why nothing was left to break it. {opt1} tempts you because it is true and even-handed. It is vague, and vagueness is what keeps a decent answer stuck in the middle."
   },
   {
     "type": "question",
@@ -499,7 +501,7 @@ const FLOW = [
       "The question cannot be settled, since the crash and the policies happened together and no one can separate their effects now"
     ],
     "correct": 0,
-    "explanation": "{opt0} grants the crash real weight, then limits it with two facts it can't explain. {opt1} tempts because the crash was severe, but it ignores that Zairianisation failed first. {opt3} refuses to judge, and refusing to judge answers nothing."
+    "explanation": "{opt0} grants the crash real weight, then limits it with two facts it cannot explain. {opt1} tempts you because the crash was severe. It ignores that Zairianisation failed first. {opt3} refuses to judge, and refusing to judge answers nothing."
   },
   {
     "type": "carousel",
@@ -545,7 +547,7 @@ const FLOW = [
       "The collapse of Zaire in the late 1970s was caused by a fall in world copper prices that no government in Kinshasa could have done anything at all to prevent"
     ],
     "correct": 0,
-    "explanation": "{opt0} grants the point, limits it, and concludes, naming the two facts the crash can't cover. {opt1} tempts because it's a complete, accurate list of everything that went wrong. But a list doesn't argue, and a closing paragraph is exactly where the argument has to land."
+    "explanation": "{opt0} grants the point, limits it, and concludes. It names the two facts the crash cannot cover. {opt1} tempts you because it is a complete, accurate list of everything that went wrong. A list does not argue. A closing paragraph is exactly where the argument has to land."
   },
   {
     "type": "content",
@@ -946,6 +948,7 @@ function bindToggles(){
 
 // ============ RESULTS ============
 function showResults(){
+  kulaEmbed("completed");
   topBar.classList.add("hidden");
   nav.classList.add("hidden");
   let correct=0;
@@ -982,19 +985,13 @@ function showResults(){
     ${runsum}
     <div class="results-actions">
       <button class="btn-secondary" id="restart-btn">Restart lesson</button>
-      <button class="btn-primary" id="finish-btn">Finish</button>
+      <button class="btn-primary" id="finish-btn">Continue to Lesson 5&nbsp;&rarr;</button>
     </div>`;
   document.getElementById("restart-btn").addEventListener("click",()=>{
     state.idx=-1; state.answers={}; state.revealed={}; state.order={}; state.carRead={}; state.interState={}; state.poppedBuild={};
     renderCover();
   });
-  document.getElementById("finish-btn").addEventListener("click",()=>{
-    const back=document.createElement("div");
-    back.className="pop-back";
-    back.innerHTML=`<div class="pop"><div class="pop-label">Lesson 4 complete</div><div class="pop-text">Tap Done to continue to Lesson 5, Build the Skeleton.</div><button class="pop-btn" id="fin-ok">Done</button></div>`;
-    document.body.appendChild(back);
-    document.getElementById("fin-ok").addEventListener("click",()=>back.remove());
-  });
+  document.getElementById("finish-btn").onclick=()=>kulaEmbed("advance");
 }
 
 function isRight(i){
